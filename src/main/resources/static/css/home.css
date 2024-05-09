@@ -1,0 +1,18 @@
+@charset "ISO-8859-1";
+/* Apply styles to the links */
+a {
+  display: block; /* Display links as block elements to occupy full width */
+  width: 200px; /* Set the width of the links */
+  margin: 20px auto; /* Center the links horizontally */
+  padding: 10px; /* Add padding for better readability */
+  text-align: center; /* Center-align the text within the links */
+  text-decoration: none; /* Remove default underline */
+  color: #fff; /* Text color */
+  background-color: #007bff; /* Background color */
+  border-radius: 5px; /* Add rounded corners */
+}
+
+/* Apply hover effect */
+a:hover {
+  background-color: #0056b3; /* Darker background color on hover */
+}

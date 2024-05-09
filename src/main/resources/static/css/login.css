@@ -1,0 +1,52 @@
+@charset "ISO-8859-1";
+
+/* Apply styles to the h1 heading */
+h1 {
+  text-align: center; /* Center the heading */
+  font-size: 24px; /* Adjust the font size */
+  margin-top: 20px; /* Add some top margin for spacing */
+  color: #333; /* Set the text color */
+}
+/* Apply styles to the form container */
+form {
+  width: 300px; /* Adjust width as needed */
+  margin: 20px auto 0; /* Added top margin */
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+/* Apply styles to form labels */
+label {
+  display: block; /* Make labels appear on their own line */
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+/* Apply styles to input fields */
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box; /* Ensure input width includes padding and border */
+}
+
+/* Apply styles to submit button */
+input[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 3px;
+  background-color: #007bff; /* Blue color for the button */
+  color: #fff; /* White text color */
+  cursor: pointer;
+}
+
+/* Apply hover effect to submit button */
+input[type="submit"]:hover {
+  background-color: #0056b3; /* Darker blue color on hover */
+}

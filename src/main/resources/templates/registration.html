@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Tune Hub : Register</title>
+<link rel="stylesheet" th:href="@{/css/register.css}">
+</head>
+<body>
+	<h1>REGISTER HERE</h1>
+	<form action="register" method="post">
+		<label>User name </label> <input type="text" name="username"><br>
+		<label>Email </label> <input type="email" name="email"><br>
+		<label>Password </label> <input type="password" name="password">
+		<br> <label>Gender</label>
+		<div class="radio-group">
+			<input type="radio" name="gender" id="male" value="male"> 
+			<label for="male">M</label> 
+			<input type="radio" name="gender" id="female" value="female"> 
+			<label for="female">F</label> 
+			<input type="radio" name="gender" id="other" value="other"> 
+			<label for="other">O</label>
+		</div>
+		<label>Role</label>
+		<div class="radio-group">
+			<input type="radio" name="role" id="admin" value="admin"> 
+			<label for="admin">Admin</label> 
+			<input type="radio" name="role"	id="customer" value="customer"> 
+			<label for="customer">Customer</label>
+		</div>
+		<label>Address</label>
+		<textarea name="address" rows="" cols=""></textarea>
+		<br> <input type="submit" value="REGISTER">
+	</form>
+</body>
+</html>
