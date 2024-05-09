@@ -13,6 +13,7 @@ import com.tunehub.services.UsersService;
 import com.razorpay.Order;
 import com.razorpay.RazorpayClient;
 import com.razorpay.RazorpayException;
+import com.razorpay.Utils;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -39,23 +40,66 @@ public class PaymentController {
 			RazorpayClient razorpay = new RazorpayClient("rzp_test_mCnwx34pAoEMH0","8WEgA5exvFDZv4NcnuQrydeO");
 		    
 			JSONObject orderRequest = new JSONObject();
-			orderRequest.put("amount", amount*100); // amount in the smallest currency unit
-			orderRequest.put("currency", "INR");
-			orderRequest.put("receipt", "order_rcptid_11");
+			orderRequest.put("amount",50000);
+			orderRequest.put("currency","INR");
+			orderRequest.put("receipt", "receipt#1");
+			JSONObject notes = new JSONObject();
+			notes.put("notes_key_1","Tea, Earl Grey, Hot");
+			orderRequest.put("notes",notes);
 
+		
 			order = razorpay.orders.create(orderRequest);
-
-			String mail =  (String) session.getAttribute("email");
-
-			Users u = service.getUser(mail);
-			u.setPremium(true);
-			service.updateUser(u);
-
-		} catch (RazorpayException e) {
-			e.printStackTrace();
 		}
-		finally {
-			return order.toString();
+		catch(Exception e) {
+			System.out.println("exception while crteating order");
 		}
-	}	
+		return order.toString();
+	}
+	
+	@PostMapping("/verify")
+	@ResponseBody
+	public boolean verifyPayment(@RequestParam  String orderId, @RequestParam String paymentId,
+											@RequestParam String signature) {
+	    try {
+	        // Initialize Razorpay client with your API key and secret
+	        @SuppressWarnings("unused")
+			RazorpayClient razorpayClient = new RazorpayClient("rzp_test_mCnwx34pAoEMH0",
+					                                                   "8WEgA5exvFDZv4NcnuQrydeO");
+	        // Create a signature verification data string
+	        String verificationData = orderId + "|" + paymentId;
+
+	        // Use Razorpay's utility function to verify the signature
+	        boolean isValidSignature = Utils.verifySignature(verificationData, signature, 
+	        													"8WEgA5exvFDZv4NcnuQrydeO");
+
+	        return isValidSignature;
+	    } catch (RazorpayException e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+	
+	
+	//payment-success -> update to premium user
+	@GetMapping("payment-success")
+	public String paymentSuccess(HttpSession session){
+		
+		String email = (String) session.getAttribute("email");
+		Users user = service.getUser(email);
+		user.setPremium(true);
+		service.updateUser(user);
+		
+		return "login";
+	}
+	
+	
+	
+	
+	//payment-failure -> redirect to login 
+	@GetMapping("payment-failure")
+	public String paymentFailure(){
+		//payment-error page
+		return "login";
+	}
+	
 }

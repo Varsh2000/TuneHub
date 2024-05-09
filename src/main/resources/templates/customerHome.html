@@ -8,11 +8,37 @@
 </head>
 <h1>CUSTOMER HOME</h1>
 <div class="container">
-	
+
 	<ul class="menu">
-		<li><a href="pay">GET PREMIUM</a></li>
-		<li><a href="logout">LOGOUT</a></li>
-	</ul>
+		<div th:unless="${isPremium}" class="non-premium">
+			<a href="pay">GET PREMIUM</a> <br> 
+			<a href="logout">LOGOUT</a>
+		</div>
+		</ul>
+
+		<div th:if="${isPremium}" class="premium">
+			<table border>
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Artist</th>
+						<th>Genre</th>
+						<th>Play</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="song:${songs}">
+						<td th:text="${song.name}"></td>
+						<td th:text="${song.artist}"></td>
+						<td th:text="${song.genre}"></td>
+						<td><audio controls>
+								<source th:src="${song.link}" type="audio/mpeg">
+							</audio>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 </div>
 </body>
 </html>
